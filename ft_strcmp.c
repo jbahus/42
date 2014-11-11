@@ -6,7 +6,7 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 19:35:09 by jbahus            #+#    #+#             */
-/*   Updated: 2014/11/08 20:43:37 by jbahus           ###   ########.fr       */
+/*   Updated: 2014/11/09 22:00:53 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,17 @@
 
 int		ft_strcmp(const char *s1, const char *s2)
 {
-	while (*s1 == *s2 && *s1)
+	unsigned char	*str1;
+	unsigned char	*str2;
+
+	if (!s1 || !s2)
+		return (0);
+	str1 = (unsigned char*)s1;
+	str2 = (unsigned char*)s2;
+	while (*str1 == *str2 && *str1 && *str2)
 	{
-		s1++;
-		s2++;
+		str1++;
+		str2++;
 	}
-	return (*s1 - *s2);
+	return (*str1 - *str2);
 }

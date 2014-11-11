@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl.c                                       :+:      :+:    :+:   */
+/*   ft_strdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/06 17:06:57 by jbahus            #+#    #+#             */
-/*   Updated: 2014/11/09 19:11:34 by jbahus           ###   ########.fr       */
+/*   Created: 2014/11/09 19:13:41 by jbahus            #+#    #+#             */
+/*   Updated: 2014/11/09 20:31:09 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putendl(char const *s)
+void	ft_strdel(char **as)
 {
-	int		i;
-
-	i = 0;
-	while (s[i] != '\0')
-		ft_putchar(s[i++]);
-	ft_putchar('\n');
+	if (as && *as)
+	{
+		free(*as);
+		*as = NULL;
+	}
 }

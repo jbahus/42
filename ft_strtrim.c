@@ -6,7 +6,7 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/06 20:31:19 by jbahus            #+#    #+#             */
-/*   Updated: 2014/11/07 19:49:34 by jbahus           ###   ########.fr       */
+/*   Updated: 2014/11/10 21:20:39 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,18 @@
 
 char	*ft_strtrim(char const *s)
 {
-	size_t	frt;
-	size_t	bck;
+	unsigned int	i;
+	size_t			len;
 
-	frt = 0;
-	bck = ft_strlen(s) - 1;
-	while (s[frt] == ' ' || s[frt] == '\n' || s[frt] == '\t')
-		frt++;
-	while (s[bck] == ' ' || s[bck] == '\n' || s[bck] == '\t')
-		bck--;
-	return (ft_strsub(s, frt, (bck - frt)));
+	if (!s)
+		return (0);
+	i = 0;
+	while (ft_isspace(s[i]))
+		i++;
+	len = ft_strlen(s) - 1;
+	while (len && ft_isspace(s[len]))
+		len--;
+	if (len < i)
+		return (ft_strdup (""));
+	return (ft_strsub(s, i, len - (size_t)i + 1));
 }

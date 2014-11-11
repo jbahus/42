@@ -6,7 +6,7 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/04 18:48:16 by jbahus            #+#    #+#             */
-/*   Updated: 2014/11/08 19:21:18 by jbahus           ###   ########.fr       */
+/*   Updated: 2014/11/09 20:28:57 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void	ft_memdel(void **ap)
 {
-	char	*ptr;
-
-	ptr = *ap;
-	free (ptr);
-	ptr = NULL;
-	*ap = ptr;
+	if (ap && *ap)
+	{
+		free(*ap);
+		*ap = NULL;
+	}
 }

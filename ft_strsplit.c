@@ -5,52 +5,39 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/07 14:18:47 by jbahus            #+#    #+#             */
-/*   Updated: 2014/11/07 16:49:31 by jbahus           ###   ########.fr       */
+/*   Created: 2014/11/11 17:23:06 by jbahus            #+#    #+#             */
+/*   Updated: 2014/11/11 23:36:37 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-char		**ft_strsplit(char const *s, char c)
+char	**ft_strsplit(const char *s, char c)
 {
 	char	**ret;
-	char	*str;
-	int		i;
-	int		j;
-	int		nbstr;
+	size_t	i;
+	size_t	j;
+	size_t	len;
 
-	nbstr = 1;
-	i = -1;
-	str = (char*)s;
-	if(str[i] != c)
-		nbstr++;
-	while (str[i++])
-		if (str[i] != c && str[i + 1] != c)
-			nbstr++;
-	ret = (char**)malloc(sizeof(char**) * nbstr);
+	if (!s || !c)
+		return (0);
+	ret = ft_memalloc(ft_strlen(s) + 1);
 	i = 0;
-	while (i < nbstr)
-		ret[i++] = ft_strnew(ft_strlen(str));
-	if (ret == NULL)
-		return (NULL);
-	i = 0;
-	while (*str != '\0')
+	j = 0;
+	while (s[i])
 	{
-		j = 0;
-		printf("d\n");
-		while (*str != c && *str != '\0')
+		if (s[i] == c)
+			i++;
+		else
 		{
-			ret[i][j++] = *str++;
-			printf("q\n");
+			len = 0;
+			while (s[i + len] && (s[i + len] != c))
+				len++;
+			ret[j] = ft_strsub(s, i, len);
+			j++;
+			i = i + len;
 		}
-		while (*str == c && *str != '\0')
-		{
-			printf("c\n");
-			str++;
-		}
-		i++;
 	}
+	ret[j] = 0;
 	return (ret);
 }

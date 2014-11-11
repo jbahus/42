@@ -6,19 +6,17 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/06 17:53:56 by jbahus            #+#    #+#             */
-/*   Updated: 2014/11/06 18:00:18 by jbahus           ###   ########.fr       */
+/*   Updated: 2014/11/09 19:10:54 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libfth"
+#include "libft.h"
 
 void	ft_putstr_fd(char const *s, int fd)
 {
-	char	*str;
 	int		i;
 
-	str = s;
 	i = 0;
-	while (str[i] != '\0')
-		ft_putchar_fd(str[i++], fd);
+	while (s[i] != '\0')
+		ft_putchar_fd(s[i++], fd);
 }
