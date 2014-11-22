@@ -6,7 +6,7 @@
 #    By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/11 17:58:18 by jbahus            #+#    #+#              #
-#    Updated: 2014/11/22 18:45:20 by jbahus           ###   ########.fr        #
+#    Updated: 2014/11/22 20:03:58 by jbahus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,6 @@ FLAG = -Wall -Werror -Wextra
 all: $(NAME)
 
 $(NAME): $(OBJ)
-##	@gcc -c $(FLAG) $(SRC) -I .
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 	@echo "\|/        "
