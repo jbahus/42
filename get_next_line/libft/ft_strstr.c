@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/14 01:06:45 by jbahus            #+#    #+#             */
-/*   Updated: 2014/11/22 18:09:25 by jbahus           ###   ########.fr       */
+/*   Created: 2014/11/03 18:53:39 by jbahus            #+#    #+#             */
+/*   Updated: 2014/11/09 23:35:32 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <fcntl.h>
-# include "librairie/libft.h"
-# define BUFF_SIZE 32
+char	*ft_strstr(const char *s1, const char *s2)
+{
+	const char *str1;
+	const char *str2;
 
-int		get_next_line(int const fd, char** line);
-int 	ft_search(const char *buf);
-
-#endif
+	if (s2 == NULL)
+		return ((char *)s1);
+	while (*s1 != '\0')
+	{
+		str1 = s1;
+		str2 = s2;
+		while (*str1 == *str2 && *str1 != '\0' && *str2 != '\0')
+		{
+			str1++;
+			str2++;
+		}
+		if (*str2 == '\0')
+			return ((char *)s1);
+		s1++;
+	}
+	return (NULL);
+}

@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/14 01:06:45 by jbahus            #+#    #+#             */
-/*   Updated: 2014/11/22 18:09:25 by jbahus           ###   ########.fr       */
+/*   Created: 2014/11/10 18:15:00 by jbahus            #+#    #+#             */
+/*   Updated: 2014/11/10 21:04:15 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <fcntl.h>
-# include "librairie/libft.h"
-# define BUFF_SIZE 32
+int		ft_atoi(const char *str)
+{
+	int ret;
+	int sign;
 
-int		get_next_line(int const fd, char** line);
-int 	ft_search(const char *buf);
-
-#endif
+	ret = 0;
+	sign = 1;
+	while (ft_isspace(*str))
+	{
+		str++;
+	}
+	if (*str == '-' || *str == '+')
+	{
+		sign = (*str == '-' ? -1 : 1);
+		str++;
+	}
+	while (ft_isdigit(*str))
+	{
+		ret = (ret * 10) + (*str - '0');
+		str++;
+	}
+	return (ret * sign);
+}

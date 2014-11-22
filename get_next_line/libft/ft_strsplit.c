@@ -1,25 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/14 01:06:45 by jbahus            #+#    #+#             */
-/*   Updated: 2014/11/22 18:09:25 by jbahus           ###   ########.fr       */
+/*   Created: 2014/11/11 17:23:06 by jbahus            #+#    #+#             */
+/*   Updated: 2014/11/11 23:51:40 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <fcntl.h>
-# include "librairie/libft.h"
-# define BUFF_SIZE 32
+char	**ft_strsplit(const char *s, char c)
+{
+	char	**ret;
+	size_t	i;
+	size_t	j;
+	size_t	len;
 
-int		get_next_line(int const fd, char** line);
-int 	ft_search(const char *buf);
-
-#endif
+	if (!s || !c)
+		return (0);
+	ret = ft_memalloc(ft_strlen(s) + 1);
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			i++;
+		else
+		{
+			len = 0;
+			while (s[i + len] && (s[i + len] != c))
+				len++;
+			ret[j++] = ft_strsub(s, i, len);
+			i = i + len;
+		}
+	}
+	ret[j] = 0;
+	return (ret);
+}

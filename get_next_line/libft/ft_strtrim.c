@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/14 01:06:45 by jbahus            #+#    #+#             */
-/*   Updated: 2014/11/22 18:09:25 by jbahus           ###   ########.fr       */
+/*   Created: 2014/11/06 20:31:19 by jbahus            #+#    #+#             */
+/*   Updated: 2014/11/10 21:20:39 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <fcntl.h>
-# include "librairie/libft.h"
-# define BUFF_SIZE 32
+char	*ft_strtrim(char const *s)
+{
+	unsigned int	i;
+	size_t			len;
 
-int		get_next_line(int const fd, char** line);
-int 	ft_search(const char *buf);
-
-#endif
+	if (!s)
+		return (0);
+	i = 0;
+	while (ft_isspace(s[i]))
+		i++;
+	len = ft_strlen(s) - 1;
+	while (len && ft_isspace(s[len]))
+		len--;
+	if (len < i)
+		return (ft_strdup (""));
+	return (ft_strsub(s, i, len - (size_t)i + 1));
+}
