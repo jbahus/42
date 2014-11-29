@@ -6,7 +6,7 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/26 17:11:17 by jbahus            #+#    #+#             */
-/*   Updated: 2014/11/27 19:52:55 by jbahus           ###   ########.fr       */
+/*   Updated: 2014/11/29 02:55:10 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ int		expose_hook(t_env *e);
 int 	key_hook(int key_code);
 void	*draw(void *mlx, void *win);
 int		open_f(char *fname);
-void	ft_create_tab(int **tab, char *line);
+void	ft_create_tab(char *line);
 
 #endif
