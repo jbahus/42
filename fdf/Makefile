@@ -6,13 +6,13 @@
 #    By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/01 19:23:58 by jbahus            #+#    #+#              #
-#    Updated: 2014/12/01 20:16:58 by jbahus           ###   ########.fr        #
+#    Updated: 2014/12/01 22:19:13 by jbahus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
-SRC = ft_read_fd.c main.c fdf.c get_next_line.c
+SRC = ft_read_fd.c main.c fdf.c get_next_line.c error.c
 
 DEL = rm -f
 

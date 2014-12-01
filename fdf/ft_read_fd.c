@@ -6,7 +6,7 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/26 19:55:24 by jbahus            #+#    #+#             */
-/*   Updated: 2014/12/01 20:55:28 by jbahus           ###   ########.fr       */
+/*   Updated: 2014/12/01 22:44:29 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,16 @@ t_stock	*ft_create_lst(int nb, t_stock *lst)
 
 t_stock *ft_return_bol(t_stock *lst)
 {
+	static int i;
+
+	i = 0;
 	while (lst->prev != NULL)
+	{
+		ft_putnbr(i);
+		ft_putchar('\n');
+		i++;
 		lst = lst->prev;
+	}
 	return (lst);
 }
 
@@ -50,17 +58,20 @@ int		open_f(char *fname)
 {
 	int		fd;
 	char	*line;
+	int 	ret;
 	t_stock *lst;
 
 	fd = open(fname, O_RDONLY);
-	if (!fd)
-		return (0);
+	if (fd == -1)
+		ft_error(fname);
 	line = NULL;
 	lst = (t_stock*)malloc(sizeof(t_stock));
 	lst->prev = NULL;
-	while (get_next_line(fd, &line))
+	while ((ret = get_next_line(fd, &line)))
 	{
-		ft_go_lst(line, lst);
+		if (ret == -1)
+			ft_error(fname);
+		lst = ft_go_lst(line, lst);
 		lst = ft_create_lst('\n', lst);
 		free(line);
 	}

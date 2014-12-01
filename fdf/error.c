@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/24 22:22:12 by jbahus            #+#    #+#             */
-/*   Updated: 2014/11/28 20:11:43 by jbahus           ###   ########.fr       */
+/*   Created: 2014/12/01 22:04:38 by jbahus            #+#    #+#             */
+/*   Updated: 2014/12/01 22:21:16 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "fdf.h"
 
-# include <sys/types.h>
-# include <sys/uio.h>
-# include "libft/libft.h"
-# define BUFF_SIZE 1
-
-int				get_next_line(int const fd, char **line);
-
-#endif
+void	ft_error(const char *str)
+{
+	ft_putstr("fdf: ");
+	if (!str)
+	{
+		ft_putstr(strerror(errno));
+		ft_putchar('\n');
+	}
+	else
+		perror(str);
+	exit (0);
+}
