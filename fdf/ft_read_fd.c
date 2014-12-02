@@ -6,7 +6,7 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/26 19:55:24 by jbahus            #+#    #+#             */
-/*   Updated: 2014/12/02 16:48:43 by jbahus           ###   ########.fr       */
+/*   Updated: 2014/12/02 19:15:41 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_stock	*ft_create_lst(int nb, char nl, t_stock *lst)
 		new_lst->nb = nb;
 		new_lst->nl = nl;
 		new_lst->prev = lst;
+		new_lst->next = NULL;
 		lst->next = new_lst;
 	}
 	return (new_lst);
@@ -36,13 +37,8 @@ t_stock	*ft_create_lst(int nb, char nl, t_stock *lst)
 t_stock *ft_return_bol(t_stock *lst)
 {
 	while (lst->prev != NULL)
-	{
-		if (lst->nl == '\n')
-			ft_putchar('\n');
-		else
-			ft_putnbr(lst->nb);
 		lst = lst->prev;
-	}
+	lst = lst->next;
 	return (lst);
 }
 
@@ -80,7 +76,7 @@ int		open_f(char *fname)
 		lst = ft_create_lst('\0', '\n', lst);
 		free(line);
 	}
-	ft_return_bol(lst);
+	lst = ft_return_bol(lst);
 	close(fd);
 	return (0);
 }
