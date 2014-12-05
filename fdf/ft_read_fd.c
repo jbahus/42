@@ -6,7 +6,7 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/26 19:55:24 by jbahus            #+#    #+#             */
-/*   Updated: 2014/12/02 19:15:41 by jbahus           ###   ########.fr       */
+/*   Updated: 2014/12/05 18:56:47 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_stock	*ft_create_lst(int nb, char nl, t_stock *lst)
 		lst = (t_stock*)malloc(sizeof(t_stock));
 		lst->prev = NULL;
 		lst->nb = nb;
+		return (lst);
 	}
 	else
 	{
@@ -46,7 +47,6 @@ t_stock	*ft_go_lst(char *line, t_stock *lst)
 {
 	char		**ret;
 
-	ret = (char**)ft_strnew(ft_strlen(line));
 	ret = ft_strsplit(line, ' ');
 	while (*ret)
 	{
