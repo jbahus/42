@@ -6,60 +6,46 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/26 19:08:15 by jbahus            #+#    #+#             */
-/*   Updated: 2014/12/05 18:56:51 by jbahus           ###   ########.fr       */
+/*   Updated: 2014/12/06 19:24:57 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void colone(int x, int y, t_env *e)
+void	draw(t_env *e, t_stock *lst)
 {
-	int 	c;
+	int 	x;
+	int 	y;
 
-	c = 105;
-	while(c)
-	while(y <= 305)
+	x = 0;
+	y = 0;
+	while (lst)
 	{
-		x = 105;
-		while(x <= 305)
+		ft_putnbr(lst->nb);
+		if (lst->prev)
 		{
-			mlx_pixel_put(e->mlx, e->win, x, y, 0xFF0000);
-			x++;
+			if (lst->prev->nl == '\n')
+			{
+				ft_putchar('\n');
+				y += 10;
+				x = 0;
+			}
 		}
-		y += 20;
+		if (lst->nb == 10)
+			mlx_pixel_put(e->mlx, e->win, X_ORIGIN + x, (Y_ORIGIN + y + (lst->nb * ZOOM)), 0x00FF00);
+		else
+			mlx_pixel_put(e->mlx, e->win, X_ORIGIN + x, (Y_ORIGIN + y + (lst->nb * ZOOM)), 0xFF0000);
+		x += 10;
+		lst = lst->next;
 	}
-}
-
-void line(int x, int y, t_env *e)
-{
-	while(x <= 305)
-	{
-		y = 105;
-		while(y <= 305)
-		{
-			mlx_pixel_put(e->mlx, e->win, x, y, 0xFF0000);
-			y++;
-		}
-		x += 20;
-	}
-}
-
-void	*draw(t_env *e)
-{
-	int		x;
-	int		y;
-	int 	i;
-
-	x = 105;
-	y = 105;
-	line(x, y, e);
-	colone(x, y, e);
-	return (0);
 }
 
 int		expose_hook(t_env *e)
 {
-	draw(e);
+	t_stock	*lst;
+
+	lst = open_f(e);
+	draw(e, lst);
 	return (0);
 }
 
@@ -67,18 +53,7 @@ int		key_hook(int key_code)
 {
 	ft_putnbr(key_code);
 	ft_putchar('\n');
-	if (key_code == 53)
+	if (key_code == 65307)
 		exit(0);
 	return (0);
-}
-
-void	init(void)
-{
-	t_env	e;
-
-	e.mlx = mlx_init();
-	e.win = mlx_new_window(e.mlx, 420, 420, "fdf");
-	mlx_key_hook(e.win, key_hook, &e);
-	mlx_expose_hook(e.win, expose_hook, &e);
-	mlx_loop(e.mlx);
 }

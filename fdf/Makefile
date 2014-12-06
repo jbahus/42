@@ -6,7 +6,7 @@
 #    By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/01 19:23:58 by jbahus            #+#    #+#              #
-#    Updated: 2014/12/01 22:19:13 by jbahus           ###   ########.fr        #
+#    Updated: 2014/12/06 19:24:59 by jbahus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ LIB_DIR = ./libft/
 
 MLX_DIR = ./minilibx_macos/
 
+MLX = -L/usr/X11/lib -lmlx -lXext -lX11
+
 FRAM = -framework OpenGL -framework AppKit
 
 FLAG = -Wall -Werror -Wextra
@@ -29,9 +31,11 @@ FLAG = -Wall -Werror -Wextra
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	@osascript -e 'say "Welcome to the Makefile. you have select the command, all. waiting for the process."'
 	@cd $(LIB_DIR); $(MAKE) -f Makefile
-	@cd $(MLX_DIR); $(MAKE) -f Makefile
-	@gcc $(FLAG) -o $(NAME) $(OBJ) $(LIB_DIR)libft.a $(MLX_DIR)libmlx.a $(FRAM)
+	@osascript -e 'say"lib f t create."'
+	@#@cd $(MLX_DIR); $(MAKE) -f Makefile
+	@gcc $(FLAG) -o $(NAME) $(OBJ) $(LIB_DIR)libft.a $(MLX)
 	@echo "\|/        "
 	@echo "-o------.  "
 	@echo "/|\     |\ "
@@ -39,10 +43,11 @@ $(NAME): $(OBJ)
 	@echo " | create |"
 	@echo " |  ./fdf |"
 	@echo " '--------'"
+	@osascript -e 'say"Program f d f create. Command finish."'
 	
 clean:
 	@$(DEL) $(OBJ)
-	@cd $(MLX_DIR); $(MAKE) clean -f Makefile
+	@#@cd $(MLX_DIR); $(MAKE) clean -f Makefile
 	@cd $(LIB_DIR); $(MAKE) clean -f Makefile
 
 fclean: clean
