@@ -6,7 +6,7 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/26 19:55:24 by jbahus            #+#    #+#             */
-/*   Updated: 2014/12/06 19:25:01 by jbahus           ###   ########.fr       */
+/*   Updated: 2014/12/08 19:26:44 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,27 @@
 
 t_stock	*ft_create_lst(int nb, char nl, t_stock *lst)
 {
-	t_stock *new_lst;
+	t_stock		*new_lst;
+	static int	x;
+	static int	y;
 
+	if (!x)
+		x += ZOOM;
+	if (lst->nl == '\n')
+	{
+		y += ZOOM;
+		x = 0;
+	}
 	if (!lst)
 	{
-		lst = (t_stock*)malloc(sizeof(t_stock));
-		lst->prev = NULL;
-		lst->nl = nl;
-		lst->nb = nb;
+		lst = first_lst(nb, nl, lst, x, y);
+		x += ZOOM;
 		return (lst);
 	}
 	else
 	{
-		new_lst = (t_stock*)malloc(sizeof(t_stock));
-		new_lst->nb = nb;
-		new_lst->nl = nl;
-		new_lst->prev = lst;
-		new_lst->next = NULL;
-		lst->next = new_lst;
+		new_lst = ft_new_lst(nb, nl, lst, new_lst, x, y);
+		x += ZOOM;
 	}
 	return (new_lst);
 }
@@ -40,7 +43,6 @@ t_stock *ft_return_bol(t_stock *lst)
 {
 	while (lst->prev != NULL)
 		lst = lst->prev;
-	//lst = lst->next;
 	return (lst);
 }
 
@@ -49,6 +51,8 @@ t_stock	*ft_go_lst(char *line, t_stock *lst)
 	char		**ret;
 
 	ret = ft_strsplit(line, ' ');
+	if (!lst)
+		lst = first_lst(ft_atoi(*ret++), '\0', lst, 0, 0);
 	while (*ret)
 	{
 		lst = ft_create_lst(ft_atoi(*ret), '\0', lst);
@@ -62,7 +66,7 @@ t_stock	*open_f(t_env *e)
 {
 	char	*line;
 	int		ret;
-	int 	fd;
+	int		fd;
 	t_stock *lst;
 
 	fd = open(e->fname, O_RDONLY);

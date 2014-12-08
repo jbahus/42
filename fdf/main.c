@@ -6,7 +6,7 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/26 17:10:26 by jbahus            #+#    #+#             */
-/*   Updated: 2014/12/06 19:25:01 by jbahus           ###   ########.fr       */
+/*   Updated: 2014/12/08 19:26:45 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		main(int ac, char **av)
 		return (0);
 	e.fname = av[1];
 	e.mlx = mlx_init();
-	e.win = mlx_new_window(e.mlx, 420, 420, "fdf");
+	e.win = mlx_new_window(e.mlx, 1000, 1000, "fdf");
 	mlx_key_hook(e.win, key_hook, &e);
 	mlx_expose_hook(e.win, expose_hook, &e);
 	mlx_loop(e.mlx);

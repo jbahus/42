@@ -6,7 +6,7 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/26 19:08:15 by jbahus            #+#    #+#             */
-/*   Updated: 2014/12/06 19:24:57 by jbahus           ###   ########.fr       */
+/*   Updated: 2014/12/08 19:26:46 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,34 @@
 
 void	draw(t_env *e, t_stock *lst)
 {
-	int 	x;
-	int 	y;
+	int dx;
+	int	dy;
+	int x_y;
 
-	x = 0;
-	y = 0;
-	while (lst)
+	while(lst->next)
 	{
-		ft_putnbr(lst->nb);
-		if (lst->prev)
-		{
-			if (lst->prev->nl == '\n')
+		dx = (lst->next->x - lst->x);
+		dy = (lst->next->y - lst->y);
+		x_y = (int)(dy * (dx / (lst->next->x - lst->x)));
+		if (lst->nl != '\n')
+		{	
+			if (lst->z == 10)
 			{
-				ft_putchar('\n');
-				y += 10;
-				x = 0;
+				while (dx >= 0)
+				{
+					mlx_pixel_put(e->mlx, e->win, lst->x + dx, lst->y + x_y, 0xFF0000);
+					dx--;
+				}
+			}
+			else
+			{
+				while (dx >= 0)
+				{
+					mlx_pixel_put(e->mlx, e->win, lst->x + dx, lst->y + x_y, 0xFF0000);
+					dx--;
+				}
 			}
 		}
-		if (lst->nb == 10)
-			mlx_pixel_put(e->mlx, e->win, X_ORIGIN + x, (Y_ORIGIN + y + (lst->nb * ZOOM)), 0x00FF00);
-		else
-			mlx_pixel_put(e->mlx, e->win, X_ORIGIN + x, (Y_ORIGIN + y + (lst->nb * ZOOM)), 0xFF0000);
-		x += 10;
 		lst = lst->next;
 	}
 }
