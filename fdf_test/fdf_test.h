@@ -3,6 +3,10 @@
 
 # include "get_next_line.h"
 # include <fcntl.h>
+# define SPACE 20
+# define X_ORIGIN 300
+# define Y_ORIGIN 300
+# define CONST 0.7
 
 typedef struct s_map
 {
