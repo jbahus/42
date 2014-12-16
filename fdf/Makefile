@@ -6,7 +6,7 @@
 #    By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/01 19:23:58 by jbahus            #+#    #+#              #
-#    Updated: 2014/12/06 19:24:59 by jbahus           ###   ########.fr        #
+#    Updated: 2014/12/16 20:41:29 by jbahus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,9 +31,9 @@ FLAG = -Wall -Werror -Wextra
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@osascript -e 'say "Welcome to the Makefile. you have select the command, all. waiting for the process."'
+	@#osascript -e 'say "Welcome to the Makefile. you have select the command, all. waiting for the process."'
 	@cd $(LIB_DIR); $(MAKE) -f Makefile
-	@osascript -e 'say"lib f t create."'
+	@#osascript -e 'say"lib f t create."'
 	@#@cd $(MLX_DIR); $(MAKE) -f Makefile
 	@gcc $(FLAG) -o $(NAME) $(OBJ) $(LIB_DIR)libft.a $(MLX)
 	@echo "\|/        "
@@ -43,7 +43,7 @@ $(NAME): $(OBJ)
 	@echo " | create |"
 	@echo " |  ./fdf |"
 	@echo " '--------'"
-	@osascript -e 'say"Program f d f create. Command finish."'
+	@#osascript -e 'say"Program f d f create. Command finish."'
 	
 clean:
 	@$(DEL) $(OBJ)

@@ -6,52 +6,54 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/26 19:08:15 by jbahus            #+#    #+#             */
-/*   Updated: 2014/12/08 19:26:46 by jbahus           ###   ########.fr       */
+/*   Updated: 2014/12/16 21:09:17 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	draw(t_env *e, t_stock *lst)
+void	ft_draw_line(t_env *e, int dx, int dy)
 {
-	int dx;
-	int	dy;
-	int x_y;
+	int		x_y;
 
-	while(lst->next)
-	{
-		dx = (lst->next->x - lst->x);
-		dy = (lst->next->y - lst->y);
-		x_y = (int)(dy * (dx / (lst->next->x - lst->x)));
-		if (lst->nl != '\n')
-		{	
-			if (lst->z == 10)
-			{
-				while (dx >= 0)
-				{
-					mlx_pixel_put(e->mlx, e->win, lst->x + dx, lst->y + x_y, 0xFF0000);
-					dx--;
-				}
-			}
-			else
-			{
-				while (dx >= 0)
-				{
-					mlx_pixel_put(e->mlx, e->win, lst->x + dx, lst->y + x_y, 0xFF0000);
-					dx--;
-				}
-			}
+	while (dx >= 0)
+		{
+			//x_y = (int)(dy / dx);
+			mlx_pixel_put(e->mlx, e->win, dx, dy, 0xFF0000);
+			dx--;
 		}
-		lst = lst->next;
+}
+
+void	draw(t_env *e, int **tab)
+{
+	int		x;
+	int		y;
+	int 	dx;
+	int		dy;
+
+	x = 1;
+	while(x <= tab[0][0])
+	{
+		y = 2;
+		while (y <= tab[x][0])
+		{
+			dy = (((x * ZOOM) + X_ORIGIN + (CONST * tab[x][y])) - ((x * ZOOM) + X_ORIGIN + (CONST * tab[x][y - 1])));
+			if ((x + 1) <= tab[0][0])
+				dx = (((x * ZOOM) + X_ORIGIN + (CONST * tab[x + 1][y])) - ((x * ZOOM) + X_ORIGIN + (CONST * tab[x][y])));
+			ft_draw_line(e, dx, dy);
+			//ft_draw_col(e,
+			y++;
+		}
+		x++;
 	}
 }
 
 int		expose_hook(t_env *e)
 {
-	t_stock	*lst;
+	int		**tab;
 
-	lst = open_f(e);
-	draw(e, lst);
+	tab = open_f(e);
+	draw(e, tab);
 	return (0);
 }
 
