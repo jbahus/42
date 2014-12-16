@@ -6,7 +6,7 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/13 15:11:42 by jbahus            #+#    #+#             */
-/*   Updated: 2014/12/13 18:53:29 by jbahus           ###   ########.fr       */
+/*   Updated: 2014/12/16 14:58:39 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 int		*get_map(char *str, int *map)
 {
 	int		i;
-	int		j;
 	char	**ret;
 
-	j = 0;
 	i = 0;
 	ret = ft_strsplit(str, ' ');
 	if (!ret)
@@ -29,62 +27,77 @@ int		*get_map(char *str, int *map)
 	i = 0;
 	while (ret[i])
 	{
-		map[j] = ft_atoi(ret[i]);
-		j++;
+		map[i] = ft_atoi(ret[i]);
+		i++;
 	}
+	free(ret);
 	return (map);
 }
 
-char	**fat_realloc(char **str)
+int		*ft_intcpy(int *ret, int *map)
 {
-	int		i;
-	char	**ret;
+	int 	i;
 
 	i = 0;
-	if (str == NULL)
+	while (map[i])
+			i++;
+	ret = (int*)malloc(sizeof(int*) * i);
+	i = 0;
+	while (map[i])
 	{
-		ret = (char**)malloc(sizeof(char**));
+		ret[i] = map[i];
+		i++;
+	}
+	return (ret);
+}
+
+int		**fat_realloc(int **map)
+{
+	int		i;
+	int		**ret;
+
+	i = 0;
+	ret = NULL;
+	//ft_putendl("trololo");
+	if (!map)
+	{
+		ret = (int**)malloc(sizeof(int**));
 		return (ret);
 	}
-	while (str[i])
+	ft_putendl("trololo");
+	while (map[i])
 		i++;
-	ret = (char**)malloc(sizeof(char**) * (i + 1));
+	ret = (int**)malloc(sizeof(int**) * (i));
 	i = 0;
-	while (str[i])
+	while (map[i])
 	{
-		ret[i] = (char*)malloc(sizeof(char*) * ft_strlen(str[i]));
-		ret[i] = ft_strcpy(ret[i], str[i]);
+		ret[i] = ft_intcpy(ret[i], map[i]);
 		i++;
 	}
-	ret[i] = NULL;
+	free(map);
 	return (ret);
 }
 
 int 	main(int argc, char const **argv)
 {
 	int		fd;
-	char	*ret;
-	char	**tmp;
-	//int		**map;
+	char	*line;
+	int		**map;
 	int		i;
 
 	i = 0;
-	tmp = NULL;
-	//map = NULL;
+	map = NULL;
 	if (!argc)
 		return (0);
 	if ((fd = open(argv[1], O_RDONLY)) < 0)
 		return (0);
-	while (get_next_line(fd, &ret))
+	line = NULL;
+	while (get_next_line(fd, &line))
 	{
-		tmp = fat_realloc(tmp);
-		tmp[i] = (char*)malloc(sizeof(char*) * ft_strlen(ret) + 1);
-		tmp[i] = ft_strcpy(tmp[i], ret);
-		//map[i] = get_map(ret, map[i]);
+		map = fat_realloc(map);
+		map[i] = get_map(line, map[i]);
+		free(line);
 		i++;
 	}
-	i = 0;
-	while (tmp[i])
-		ft_putendl(tmp[i++]);
 	return (0);
 }
