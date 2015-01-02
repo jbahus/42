@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcat.c                                        :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 17:18:59 by jbahus            #+#    #+#             */
-/*   Updated: 2015/01/02 18:15:56 by jbahus           ###   ########.fr       */
+/*   Created: 2015/01/02 19:06:46 by jbahus            #+#    #+#             */
+/*   Updated: 2015/01/02 22:03:59 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcat(char *s1, const char *s2)
+void ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
 {
-	return (ft_strncat(s1, s2, strlen(s2)));
+	t_list	*tmp;
+
+	if (alst != NULL && (*del) != NULL)
+	{
+		tmp = *alst;
+		(*del)(tmp->content, tmp->content_size);
+		(tmp->next) = NULL;
+		ft_memdel((void**)alst);
+	}
 }

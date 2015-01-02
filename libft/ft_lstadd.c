@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcat.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 17:18:59 by jbahus            #+#    #+#             */
-/*   Updated: 2015/01/02 18:15:56 by jbahus           ###   ########.fr       */
+/*   Created: 2015/01/02 15:51:32 by jbahus            #+#    #+#             */
+/*   Updated: 2015/01/02 20:41:34 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcat(char *s1, const char *s2)
+void	ft_lstadd(t_list **alst, t_list *new)
 {
-	return (ft_strncat(s1, s2, strlen(s2)));
+	if (!new || !alst)
+		return ;
+	new->next = *alst;
+	*alst = new;
 }

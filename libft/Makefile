@@ -6,7 +6,7 @@
 #    By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/11 17:58:18 by jbahus            #+#    #+#              #
-#    Updated: 2014/11/22 20:03:58 by jbahus           ###   ########.fr        #
+#    Updated: 2015/01/02 19:33:24 by jbahus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRC += ft_strlcat.c ft_strlen.c ft_strmap.c ft_strmapi.c
 SRC += ft_strncat.c ft_strncmp.c ft_strncpy.c ft_strnequ.c
 SRC += ft_strnew.c ft_strnstr.c ft_strrchr.c ft_strsplit.c
 SRC += ft_strstr.c ft_strsub.c ft_strtrim.c ft_tolower.c
-SRC += ft_toupper.c 
+SRC += ft_toupper.c ft_lstadd.c ft_lstiter.c
+SRC += ft_lstmap.c ft_lstnew.c ft_lstdel.c ft_lstdelone.c
 
 
 DEL = rm -f
