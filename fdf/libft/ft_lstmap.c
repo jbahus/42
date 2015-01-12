@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 20:39:02 by jbahus            #+#    #+#             */
-/*   Updated: 2014/11/03 20:44:06 by jbahus           ###   ########.fr       */
+/*   Created: 2015/01/02 16:02:38 by jbahus            #+#    #+#             */
+/*   Updated: 2015/01/02 22:50:27 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isascii(int c)
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	if (c >= 0 && c <= 127)
-		return (1);
-	return (0);
+	t_list	*ret;
+
+	if (lst && f)
+	{
+		ret = f(lst);
+		ret->next = ft_lstmap(lst->next, f);
+		return (ret);
+	}
+	return (NULL);
 }

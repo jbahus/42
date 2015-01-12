@@ -6,7 +6,7 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/05 13:38:54 by jbahus            #+#    #+#             */
-/*   Updated: 2014/11/08 22:16:38 by jbahus           ###   ########.fr       */
+/*   Updated: 2015/01/02 17:36:14 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,14 @@
 
 void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	char		*dest;
-	const char	*s;
-	size_t		i;
-
-	i = 0;
-	dest = dst;
-	s = src;
-	while (n > i && s[i - 1] != c)
+	while (n)
 	{
-		dest[i] = s[i];
-		i++;
-		if (i == n)
-			return (NULL);
+		*((char*)dst) = *((char*)src);
+		dst = (void*)((char*)dst + 1);
+		src = (void*)((char*)src + 1);
+		if (c == *((char*)dst - 1))
+			return (dst);
+		n--;
 	}
-	dst += i;
-	return (dst);
+	return (NULL);
 }

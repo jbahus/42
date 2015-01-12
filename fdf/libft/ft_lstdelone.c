@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 20:39:02 by jbahus            #+#    #+#             */
-/*   Updated: 2014/11/03 20:44:06 by jbahus           ###   ########.fr       */
+/*   Created: 2015/01/02 19:06:46 by jbahus            #+#    #+#             */
+/*   Updated: 2015/01/02 22:03:59 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isascii(int c)
+void ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
 {
-	if (c >= 0 && c <= 127)
-		return (1);
-	return (0);
+	t_list	*tmp;
+
+	if (alst != NULL && (*del) != NULL)
+	{
+		tmp = *alst;
+		(*del)(tmp->content, tmp->content_size);
+		(tmp->next) = NULL;
+		ft_memdel((void**)alst);
+	}
 }

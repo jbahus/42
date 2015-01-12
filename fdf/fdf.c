@@ -6,54 +6,77 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/26 19:08:15 by jbahus            #+#    #+#             */
-/*   Updated: 2014/12/16 21:09:17 by jbahus           ###   ########.fr       */
+/*   Updated: 2015/01/12 20:03:31 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_draw_line(t_env *e, int dx, int dy)
+void	ft_init_c(int *x, int *y, int *map, int **tab)
 {
-	int		x_y;
+	float	tmp;
 
-	while (dx >= 0)
-		{
-			//x_y = (int)(dy / dx);
-			mlx_pixel_put(e->mlx, e->win, dx, dy, 0xFF0000);
-			dx--;
-		}
+	tmp = 15. + (35. + map[2]) * (0.82 * map[0] + 0.60 * map[1]);
+	*x = (int)(tmp + 0.5);
+	tmp = 0.60 * (0.60 * map[0] - 0.82 * map[1]);
+	tmp -= 0.05 * tab[map[0]][map[1]];
+	//tmp *= (35. + map[2]);
+	tmp += 533.;
+	*y = (int)(tmp + 0.5);
 }
 
-void	draw(t_env *e, int **tab)
+int 	*ft_x_y(int **tab)
 {
-	int		x;
-	int		y;
-	int 	dx;
-	int		dy;
+	int 	*x_y;
+	int 	i;
 
-	x = 1;
-	while(x <= tab[0][0])
+	x_y = (int*)malloc(sizeof(x_y) * (tab[0][0] + 1));
+	i = 0;
+	x_y[i++] = tab[0][0];
+	while (i <= x_y[0])
 	{
-		y = 2;
-		while (y <= tab[x][0])
-		{
-			dy = (((x * ZOOM) + X_ORIGIN + (CONST * tab[x][y])) - ((x * ZOOM) + X_ORIGIN + (CONST * tab[x][y - 1])));
-			if ((x + 1) <= tab[0][0])
-				dx = (((x * ZOOM) + X_ORIGIN + (CONST * tab[x + 1][y])) - ((x * ZOOM) + X_ORIGIN + (CONST * tab[x][y])));
-			ft_draw_line(e, dx, dy);
-			//ft_draw_col(e,
-			y++;
-		}
-		x++;
+		x_y[i] = tab[i][0];
+		i++;
 	}
+	return (x_y);
+}
+
+int		***init_coord(int **tab)
+{
+	int 	***coord;
+	int 	i[2];
+
+	if (!(coord = (int***)malloc(sizeof(coord) * (tab[0][0] + 1))))
+		return (NULL);
+	i[0] = 1;
+	while (i[0] <= tab[0][0])
+	{
+		if (!(coord[i[0]] = (int**)malloc(sizeof(*coord) * (tab[i[0]][0] + 1))))
+			return (NULL);
+		i[1] = 1;
+		while (i[1] <= tab[i[0]][0])
+		{
+			if (!(coord[i[0]][i[1]] = (int*)malloc(sizeof(coord) * 2)))
+				return (NULL);
+			ft_init_c(&coord[i[0]][i[1]][0], &coord[i[0]][i[1]][1], i, tab);
+			i[1]++;
+		}
+		i[0]++;
+	}
+	return(coord);
 }
 
 int		expose_hook(t_env *e)
 {
+	int 	*x_y;
 	int		**tab;
+	int 	***coord;
 
 	tab = open_f(e);
-	draw(e, tab);
+	coord = init_coord(tab);
+	x_y = ft_x_y(tab);
+	init_y(e, coord, x_y);
+	init_x(e, coord, x_y);
 	return (0);
 }
 

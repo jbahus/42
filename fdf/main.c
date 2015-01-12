@@ -6,11 +6,16 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/26 17:10:26 by jbahus            #+#    #+#             */
-/*   Updated: 2014/12/16 21:09:18 by jbahus           ###   ########.fr       */
+/*   Updated: 2015/01/12 19:53:58 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	ft_pixel_put(t_env *e, int x, int y)
+{
+	mlx_pixel_put(e->mlx, e->win, x, y, 0xFF0000);
+}
 
 int		main(int ac, char **av)
 {
@@ -25,7 +30,7 @@ int		main(int ac, char **av)
 		return (0);
 	e.fname = av[1];
 	e.mlx = mlx_init();
-	e.win = mlx_new_window(e.mlx, 1000, 1000, "fdf");
+	e.win = mlx_new_window(e.mlx, 1500, 1000, av[1]);
 	mlx_key_hook(e.win, key_hook, &e);
 	mlx_expose_hook(e.win, expose_hook, &e);
 	mlx_loop(e.mlx);
