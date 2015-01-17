@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/12 18:55:35 by jbahus            #+#    #+#             */
-/*   Updated: 2015/01/12 19:56:15 by jbahus           ###   ########.fr       */
+/*   Created: 2015/01/15 17:33:03 by jbahus            #+#    #+#             */
+/*   Updated: 2015/01/17 20:43:37 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,26 @@ void	ft_coord(int *x, int *start, int alpha, int beta)
 	}
 }
 
-void	draw_y(t_env *e, int ***coord, int i, int j)
+void	draw_y(t_env *e, int i, int j)
 {
 	float	m;
-	float 	p;
-	int 	start;
-	int 	y;
-	int 	x;
+	float	p;
+	int		start;
+	int		x;
+	int		y;
 
-	y = coord[i + 1][j][1] - coord[i][j][1];
-	x = coord[i + 1][j][0] - coord[i][j][0];
+	y = e->coord[i + 1][j][1] - e->coord[i][j][1];
+	x = e->coord[i + 1][j][0] - e->coord[i][j][0];
 	m = (float)y / (float)x;
-	p = coord[i][j][1] - (m * coord[i][j][0]);
-	ft_coord(&x, &start, coord[i][j][0], coord[i + 1][j][0]);
-	while (x <start)
+	p = e->coord[i][j][1] - (m * e->coord[i][j][0]);
+	ft_coord(&x, &start, e->coord[i][j][0], e->coord[i + 1][j][0]);
+	while (x < start)
 	{
 		y = (int)((m * x + p) + 0.5);
 		ft_pixel_put(e, x, y);
 		x++;
 	}
-	ft_coord(&y, &start, coord[i][j][1], coord[i + 1][j][1]);
+	ft_coord(&y, &start, e->coord[i][j][1], e->coord[i + 1][j][1]);
 	while (y < start)
 	{
 		x = (int)((y - p) / m + 0.5);
@@ -54,26 +54,26 @@ void	draw_y(t_env *e, int ***coord, int i, int j)
 	}
 }
 
-void	draw_x(t_env *e, int ***coord, int i, int j)
+void	draw_x(t_env *e, int i, int j)
 {
 	float	m;
-	float 	p;
-	int 	start;
-	int 	y;
-	int 	x;
+	float	p;
+	int		start;
+	int		x;
+	int		y;
 
-	y = coord[i][j + 1][1] - coord[i][j][1];
-	x = coord[i][j + 1][0] - coord[i][j][0];
+	y = e->coord[i][j + 1][1] - e->coord[i][j][1];
+	x = e->coord[i][j + 1][0] - e->coord[i][j][0];
 	m = (float)y / (float)x;
-	p = coord[i][j][1] - (m *coord[i][j][0]);
-	ft_coord(&x, &start, coord[i][j][0], coord[i][j + 1][0]);
-	while (x <start)
+	p = e->coord[i][j][1] - (m * e->coord[i][j][0]);
+	ft_coord(&x, &start, e->coord[i][j][0], e->coord[i][j + 1][0]);
+	while (x < start)
 	{
 		y = (int)((m * x + p) + 0.5);
 		ft_pixel_put(e, x, y);
 		x++;
 	}
-	ft_coord(&y, &start, coord[i][j][1], coord[i][j + 1][1]);
+	ft_coord(&y, &start, e->coord[i][j][1], e->coord[i][j + 1][1]);
 	while (y < start)
 	{
 		x = (int)((y - p) / m + 0.5);
@@ -82,44 +82,32 @@ void	draw_x(t_env *e, int ***coord, int i, int j)
 	}
 }
 
-void	init_y(t_env *e, int ***coord, int *x_y)
+void	init_x(t_env *e)
 {
-	int 	i;
-	int 	x;
-	int 	y;
+	int		i;
+	int		j;
 
-	i = 1;
-	x = 0;
-	while (x < x_y[0])
+	i = 0;
+	while (i < e->line_col[0])
 	{
-		y = 0;
-		while (y < x_y[i])
-		{
-				draw_y(e, coord, x, y);
-				y++;
-		}
+		j = 0;
+		while (j < e->line_col[i + 1] - 1)
+			draw_x(e, i, j++);
 		i++;
-		x++;
 	}
 }
 
-void	init_x(t_env *e, int ***coord, int *x_y)
+void	init_y(t_env *e)
 {
-	int 	i;
-	int 	x;
-	int 	y;
+	int		i;
+	int		j;
 
-	i = 1;
-	x = 0;
-	while (x < x_y[0])
+	i = 0;
+	while (i < e->line_col[0] - 1)
 	{
-		y = 0;
-		while (y < x_y[i])
-		{
-				draw_x(e, coord, x, y);
-				y++;
-		}
+		j = 0;
+		while (j < e->line_col[i + 1] && j < e->line_col[i + 2])
+			draw_y(e, i, j++);
 		i++;
-		x++;
 	}
 }

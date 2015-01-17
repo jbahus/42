@@ -6,54 +6,36 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/07 21:08:32 by jbahus            #+#    #+#             */
-/*   Updated: 2014/11/11 17:42:16 by jbahus           ###   ########.fr       */
+/*   Updated: 2015/01/15 18:02:13 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		count_digit(int n)
+char		*ft_itoa(int n)
 {
-	int	count;
+	char	buff[22];
+	char	*str;
+	int		i;
+	int		ntmp;
 
-	count = 0;
-	if (n <= 0)
+	i = 0;
+	ntmp = n;
+	if (n < 0)
+		ntmp = -n;
+	while (ntmp > 0)
 	{
-		count = 1;
-		n = -n;
+		buff[i++] = (ntmp % 10) + 48;
+		ntmp = ntmp / 10;
 	}
-	while (n > 0)
-	{
-		n /= 10;
-		count++;
-	}
-	return (count);
-}
-
-char	*ft_itoa(int n)
-{
-	char	*buf;
-	int		j;
-
-	buf = ft_strnew(count_digit(n));
+	if (n < 0)
+		buff[i++] = '-';
+	str = ft_memalloc((size_t)i + 1);
 	if (n == -2147483648)
 		return ("-2147483648");
-	j = count_digit(n) - 1;
-	if (buf)
-	{
-		if (n < 0)
-		{
-			buf[0] = '-';
-			n = -n;
-		}
-		if (n == 0)
-			*buf = '0';
-		while (n > 0)
-		{
-			buf[j] = ('0' + (n % 10));
-			n /= 10;
-			j--;
-		}
-	}
-	return (buf);
+	else if (n == 0)
+		str[0] = '0';
+	while (--i >= 0)
+		str[ntmp++] = buff[i];
+	return (str);
 }
