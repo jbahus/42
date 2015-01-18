@@ -6,7 +6,7 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/26 17:11:17 by jbahus            #+#    #+#             */
-/*   Updated: 2015/01/15 19:06:51 by jbahus           ###   ########.fr       */
+/*   Updated: 2015/01/18 22:03:46 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,17 @@ typedef	struct		s_env
 	char	*fname;
 	int		*line_col;
 	int		***coord;
+	int 	move_x;
+	int 	move_y;
+	int 	zoom;
+	float	hight;
+	float	pivote;
 }					t_env;
 
 void	ft_error(const char *str);
 void	split(char *tmp, t_env *e);
 void	init_x(t_env *e);
 void	init_y(t_env *e);
-void	ft_pixel_put(t_env *e, int x, int y);
+void	ft_pixel_put(t_env *e, int x, int y, int z1, int z2);
 
 #endif

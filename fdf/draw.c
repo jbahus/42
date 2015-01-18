@@ -6,7 +6,7 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/15 17:33:03 by jbahus            #+#    #+#             */
-/*   Updated: 2015/01/17 20:43:37 by jbahus           ###   ########.fr       */
+/*   Updated: 2015/01/18 22:03:03 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ void	draw_y(t_env *e, int i, int j)
 	while (x < start)
 	{
 		y = (int)((m * x + p) + 0.5);
-		ft_pixel_put(e, x, y);
+		ft_pixel_put(e, x, y, e->coord[i][j][2], e->coord[i + 1][j][2]);
 		x++;
 	}
 	ft_coord(&y, &start, e->coord[i][j][1], e->coord[i + 1][j][1]);
 	while (y < start)
 	{
 		x = (int)((y - p) / m + 0.5);
-		ft_pixel_put(e, x, y);
+		ft_pixel_put(e, x, y, e->coord[i][j][2], e->coord[i + 1][j][2]);
 		y++;
 	}
 }
@@ -70,14 +70,14 @@ void	draw_x(t_env *e, int i, int j)
 	while (x < start)
 	{
 		y = (int)((m * x + p) + 0.5);
-		ft_pixel_put(e, x, y);
+		ft_pixel_put(e, x, y, e->coord[i][j][2], e->coord[i][j + 1][2]);
 		x++;
 	}
 	ft_coord(&y, &start, e->coord[i][j][1], e->coord[i][j + 1][1]);
 	while (y < start)
 	{
 		x = (int)((y - p) / m + 0.5);
-		ft_pixel_put(e, x, y);
+		ft_pixel_put(e, x, y, e->coord[i][j][2], e->coord[i][j + 1][2]);
 		y++;
 	}
 }
