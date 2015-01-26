@@ -6,7 +6,7 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/26 17:11:17 by jbahus            #+#    #+#             */
-/*   Updated: 2015/01/18 22:03:46 by jbahus           ###   ########.fr       */
+/*   Updated: 2015/01/26 19:53:36 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,30 @@
 
 typedef	struct		s_env
 {
-	void	*mlx;
-	void	*win;
-	char	*fname;
-	int		*line_col;
-	int		***coord;
-	int 	move_x;
-	int 	move_y;
-	int 	zoom;
-	float	hight;
-	float	pivote;
+	void			*mlx;
+	void			*win;
+	void			*img;
+	char			*fname;
+	int				*line_col;
+	int				***coord;
+	int				move_x;
+	int				move_y;
+	int				zoom;
+	float			hight;
+	int				min_max;
+	int				bpp;
+	int				sizeline;
+	int				endian;
+	char			*data;
 }					t_env;
 
-void	ft_error(const char *str);
-void	split(char *tmp, t_env *e);
-void	init_x(t_env *e);
-void	init_y(t_env *e);
-void	ft_pixel_put(t_env *e, int x, int y, int z1, int z2);
+void				ft_error(const char *str);
+void				split(char *tmp, t_env *e);
+void				init_x(t_env *e);
+void				init_y(t_env *e);
+void				pixput(t_env *e, int x, int y, unsigned int color);
+void				max_min(t_env *e);
+void				get_coord(t_env *e);
+unsigned int		ft_color(t_env *e, int z1, int z2);
 
 #endif

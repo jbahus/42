@@ -6,35 +6,60 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/26 19:08:15 by jbahus            #+#    #+#             */
-/*   Updated: 2015/01/18 22:12:35 by jbahus           ###   ########.fr       */
+/*   Updated: 2015/01/26 19:49:52 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_pixel_put(t_env *e, int x, int y, int z1, int z2)
+void	ft_pixel_put_img(t_env *e, int x, int y, unsigned int color)
 {
-	if (z1 <= 0 || (z1 <= 0 && z2 <= 0))
-		mlx_pixel_put(e->mlx, e->win, (x + e->move_x), (y + e->move_y), 0x3366CC);
-	if (z1 >= 10)
-		mlx_pixel_put(e->mlx, e->win, (x + e->move_x), (y + e->move_y), 0x996600);
-	if (z1 < z2 || z2 < z1)
-		mlx_pixel_put(e->mlx, e->win, (x + e->move_x), (y + e->move_y), 0x00CC00);
+	int				i;
+	unsigned char	clr[(e->bpp / 8) - 1];
+
+	i = 0;
+	while (i < ((e->bpp / 8) - 1))
+	{
+		clr[i] = color >> (i * 8);
+		i++;
+	}
+	while (i >= 0)
+	{
+		e->data[y * e->sizeline + x * e->bpp / 8 + i] = clr[i];
+		i--;
+	}
 }
 
-void	get_coord(int z, t_env *e, int i, int j)
+void	pixput(t_env *e, int x, int y, unsigned int color)
+{
+	if (x + e->move_x >= 0 && x + e->move_x < 1500 &&
+		y + e->move_y >= 0 && y + e->move_y <= 1000)
+		ft_pixel_put_img(e, (x + e->move_x), (y + e->move_y), color);
+}
+
+void	get_coord(t_env *e)
 {
 	float	tmp;
+	int		i;
+	int		j;
 
-	e->coord[i][j] = (int*)malloc(sizeof(int*) * 3);
-	tmp = 15. + (35. + e->zoom) * ((0.82 + e->pivote) * i + (0.60 - e->pivote) * j);
-	e->coord[i][j][0] = (int)(tmp + 0.5);
-	tmp = (0.60 - e->pivote) * ((0.60 - e->pivote) * i - (0.82 + e->pivote) * j);
-	tmp -= 0.05 * (z * e->hight);
-	tmp *= (35. + e->zoom);
-	tmp += 533.;
-	e->coord[i][j][1] = (int)(tmp + 0.5);
-	e->coord[i][j][2] = (z * e->hight);
+	i = 0;
+	while (i < e->line_col[0])
+	{
+		j = 0;
+		while (j < e->line_col[i + 1])
+		{
+			tmp = 15. + (35. + e->zoom) * (0.82 * i + 0.60 * j);
+			e->coord[i][j][0] = (int)(tmp + 0.5);
+			tmp = 0.60 * (0.60 * i - 0.82 * j);
+			tmp -= 0.05 * (e->coord[i][j][2] * e->hight);
+			tmp *= (35. + e->zoom);
+			tmp += 533.;
+			e->coord[i][j][1] = (int)(tmp + 0.5);
+			j++;
+		}
+		i++;
+	}
 }
 
 void	split2(char *tmp, t_env *e, int line)
@@ -53,7 +78,8 @@ void	split2(char *tmp, t_env *e, int line)
 	e->coord[line] = (int**)malloc(sizeof(int**) * (column + 1));
 	while (ret[i])
 	{
-		get_coord(ft_atoi(ret[i]), e, line, i);
+		e->coord[line][i] = (int*)malloc(sizeof(int*) * 3);
+		e->coord[line][i][2] = ft_atoi(ret[i]);
 		i++;
 	}
 }
