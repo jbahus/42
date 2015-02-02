@@ -6,13 +6,13 @@
 #    By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/01/27 15:35:10 by jbahus            #+#    #+#              #
-#    Updated: 2015/01/27 17:15:39 by jbahus           ###   ########.fr        #
+#    Updated: 2015/02/02 18:54:39 by jbahus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_ls
 
-SRC = main.c error.c ft_ls.c
+SRC = main.c error.c ft_ls.c ft_a.c
 
 DEL = rm -f
 

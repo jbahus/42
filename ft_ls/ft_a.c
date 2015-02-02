@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_a.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/27 16:42:31 by jbahus            #+#    #+#             */
-/*   Updated: 2015/02/02 18:54:43 by jbahus           ###   ########.fr       */
+/*   Created: 2015/02/02 16:50:25 by jbahus            #+#    #+#             */
+/*   Updated: 2015/02/02 18:54:41 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	ft_error(const char *str)
+void	ft_a(char *dirname)
 {
-	ft_putstr("ft_ls: ");
-	if (!str)
-	{
-		ft_putstr(strerror(errno));
-		ft_putchar('\n');
-	}
-	else
-		perror(str);
-	exit (0);
+	DIR		*dir;
+	t_dir	*files;
+
+	if (!(dir = opendir(dirname)))
+		ft_error(dirname);
+	while ((files = readdir(dir)))
+		ft_putendl(files->d_name);
+	closedir(dir);
 }
