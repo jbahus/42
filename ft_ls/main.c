@@ -41,21 +41,42 @@ void	get_opt(char *av, t_opt *opt)
 		opt->t = 1;
 }
 
-void	ft_go_to(char *av, t_opt opt)
+int		ft_ind(char **av, int i)
+{
+	static int	ret;
+
+
+	if (av[i + 1] || ret == 1)
+	{
+		ft_putstr(av[i]);
+		ft_putstr(":\n");
+		return (ret = 1);
+	}
+	return (ret = 0);
+}
+
+void	ft_go_to(char *av, t_opt opt, int ret)
 {
 	if (opt.l == 1 || opt.R == 1 || opt.a == 1 || opt.r == 1 || opt.t == 1)
 	{
 		if (opt.a == 1)
 			ft_a(av);
+		if (ret == 1)
+			ft_putchar('\n');
 	}
 	else
+	{
 		ft_ls(av);
+		if (ret == 1)
+			ft_putchar('\n');
+	}
 }
 
 int		main(int ac, char **av)
 {
 	int		i;
 	t_opt	opt;
+	t_path	path;
 
 	i = 1;
 	if (ac > 1)
@@ -66,11 +87,14 @@ int		main(int ac, char **av)
 			i++;
 	}
 	if (i >= ac)
-		ft_go_to("./", opt);
+		ft_go_to("./", opt, 0);
 	else
 	{
 		while (av[i])
-			ft_go_to(av[i++], opt);
+		{
+			ft_go_to(av[i], opt, ft_ind(av, i));
+			i++;
+		}
 	}
 	return (0);
 }
