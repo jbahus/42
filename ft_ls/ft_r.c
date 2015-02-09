@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_r.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/27 16:31:00 by jbahus            #+#    #+#             */
-/*   Updated: 2015/02/09 18:46:02 by jbahus           ###   ########.fr       */
+/*   Created: 2015/02/09 15:04:08 by jbahus            #+#    #+#             */
+/*   Updated: 2015/02/09 15:16:18 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	alph_order(t_tls **tmp, t_tls **next)
+void	rev_order(t_tls **tmp, t_tls **next)
 {
 	char	*str;
 
-	if (ft_strcmp((*tmp)->f_name, (*next)->f_name) > 0)
+	if (ft_strcmp((*tmp)->f_name, (*next)->f_name) < 0)
 		{
 			str = (*next)->f_name;
 			(*next)->f_name = (*tmp)->f_name;
@@ -24,42 +24,7 @@ void	alph_order(t_tls **tmp, t_tls **next)
 		}
 }
 
-void	aff_ls(t_tls *tls, int r)
-{
-	t_tls *tmp;
-	t_tls *next;
-
-	tmp = tls;
-	while (tmp)
-	{
-		next = tmp->next;
-		while (next)
-		{
-			if (r == 0)
-				alph_order(&tmp, &next);
-			else
-				rev_order(&tmp, &next);
-			next = next->next;
-		}
-		tmp = tmp->next;
-	}
-	while (tls)
-	{
-		ft_putendl(tls->f_name);
-		tls = tls->next;
-	}
-}
-
-t_tls	*new_tls(t_tls *tls)
-{
-	t_tls	*new_t;
-
-	new_t = malloc(sizeof(*tls));
-	new_t->next = tls;
-	return (new_t);
-}
-
-void	ft_ls(char *dirname)
+void	ft_r(char *dirname)
 {
 	DIR		*dir;
 	t_dir	*files;
@@ -78,6 +43,6 @@ void	ft_ls(char *dirname)
 			}
 	}
 	tls = tls->next;
-	aff_ls(tls, 0);
+	aff_ls(tls, 1);
 	closedir(dir);
 }

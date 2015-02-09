@@ -6,7 +6,7 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/18 02:57:14 by jbahus            #+#    #+#             */
-/*   Updated: 2015/02/02 18:54:40 by jbahus           ###   ########.fr       */
+/*   Updated: 2015/02/09 18:46:00 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	get_opt(char *av, t_opt *opt)
 	{
 		if (av[i] != 'l' && av[i] != 'R' && av[i] != 'a' && av[i] != 'r' && av[i] != 't')
 		{
-			ft_putstr("ls: illegal option -- ");
+			ft_putstr("ft_ls: illegal option -- ");
 			ft_putchar(av[i]);
 			ft_putchar('\n');
-			ft_putendl("usage: ls [-Ralrt] [file ...]");
+			ft_putendl("usage: ft_ls [-Ralrt] [file ...]");
 			exit(0);
 		}
 		i++;
@@ -45,7 +45,10 @@ int		ft_ind(char **av, int i)
 {
 	static int	ret;
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> b105d9395973e2e29253a855ddb7d0c235997429
 	if (av[i + 1] || ret == 1)
 	{
 		ft_putstr(av[i]);
@@ -61,6 +64,13 @@ void	ft_go_to(char *av, t_opt opt, int ret)
 	{
 		if (opt.a == 1)
 			ft_a(av);
+<<<<<<< HEAD
+		if (opt.t == 1)
+			ft_t(av);
+		if (opt.r == 1)
+			ft_r(av);
+=======
+>>>>>>> b105d9395973e2e29253a855ddb7d0c235997429
 		if (ret == 1)
 			ft_putchar('\n');
 	}

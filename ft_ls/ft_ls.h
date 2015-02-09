@@ -6,7 +6,7 @@
 /*   By: jbahus <jbahus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/18 05:03:42 by jbahus            #+#    #+#             */
-/*   Updated: 2015/02/02 18:54:40 by jbahus           ###   ########.fr       */
+/*   Updated: 2015/02/09 18:46:03 by jbahus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,35 @@
 # include <stdio.h>
 # include <errno.h>
 
-typedef struct		s_opt
+typedef struct			s_tls
 {
-	int 	l;
-	int 	R;
-	int 	a;
-	int 	r;
-	int 	t;
-}			t_opt;
+	char				*f_name;
+	int					mtime;
+	int					isdir;
+	struct s_tls		*next;
+}						t_tls;
 
-typedef struct dirent t_dir;
+typedef struct			s_opt
+{
+	int 				l;
+	int 				R;
+	int 				a;
+	int 				r;
+	int 				t;
+}						t_opt;
 
-void	ft_error(const char *str);
-void	ft_ls(char *dirname);
-void	ft_a(char *dirname);
-void	get_opt(char *av, t_opt *opt);
+typedef struct dirent	t_dir;
+typedef struct stat		t_stat;
+
+void					ft_error(const char *str);
+void					ft_ls(char *dirname);
+void					ft_a(char *dirname);
+void					ft_t(const char *dirname);
+void					ft_r(char *dirname);
+void					ft_R(const char *dirname);
+void					get_opt(char *av, t_opt *opt);
+void					aff_ls(t_tls *tls, int r);
+t_tls					*new_tls(t_tls *tls);
+void					rev_order(t_tls **tmp, t_tls **next);
 
 #endif
